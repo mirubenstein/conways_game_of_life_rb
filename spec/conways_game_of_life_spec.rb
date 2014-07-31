@@ -49,4 +49,29 @@ describe "Grid" do
       expect(test_grid.neighbors(test_cell)).to eq [test_grid.find(86,42), test_grid.find(86,43), test_grid.find(86,0), test_grid.find(87,42), test_grid.find(87,0), test_grid.find(0,42), test_grid.find(0,43), test_grid.find(0,0)]
     end
   end
+
+  describe "alive_neighbors" do
+    it "returns count of alive neighbors" do
+      test_grid = Grid.new(88,44)
+      test_cell = test_grid.find(87,43)
+      test_cell2 = test_grid.find(86,43)
+      test_cell2.toggle
+      expect(test_grid.alive_neighbors(test_cell)).to eq 1
+    end
+  end
+
+  describe "tick" do
+    it "any cell with exactly 0 or 1 live neighbors dies" do
+      test_grid = Grid.new(88,44)
+      test_cell = test_grid.find(87,43)
+      test_cell2 = test_grid.find(86,43)
+      test_cell3 = test_grid.find(85,43)
+      test_cell.toggle
+      test_cell2.toggle
+      test_cell3.toggle
+      test_grid.tick
+      expect(test_cell2.state).to eq "/u2588"
+      expect(test_cell3.state).to eq " "
+    end
+  end
 end

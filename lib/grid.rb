@@ -18,7 +18,6 @@ class Grid
   end
 
   def neighbors(cell)
-    # [self.find((cell.x - 1) % 88, cell.y), self.find((cell.x + 1) % 88, cell.y), self.find(cell.x, (cell.y - 1) % 44), self.find(cell.x, (cell.y + 1) % 44)]
     neighbors = []
     (-1..1).each do |x|
       (-1..1).each do |y|
@@ -29,4 +28,18 @@ class Grid
     end
     neighbors
   end
+
+  def alive_neighbors(cell)
+    self.neighbors(cell).count{|neighbor| neighbor.state == "/u2588"}
+  end
+
+  def tick
+    @all_cells.each do |cell|
+      cell.state_new = ' ' if self.alive_neighbors(cell) < 2
+    end
+    @all_cells.each do |cell|
+      cell.state = cell.state_new
+    end
+  end
+
 end
