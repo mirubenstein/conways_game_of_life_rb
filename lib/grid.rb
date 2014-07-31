@@ -17,6 +17,15 @@ class Grid
     @all_cells.select{|cell| cell.x == x && cell.y == y}[0]
   end
 
+  def randomize(percent)
+    @all_cells.map do |cell|
+      if rand(100) <= percent
+        cell.state = "/u2588"
+        cell.state_new = "/u2588"
+      end
+    end
+  end
+
   def neighbors(cell)
     neighbors = []
     (-1..1).each do |x|

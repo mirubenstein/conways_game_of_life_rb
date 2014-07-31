@@ -10,6 +10,7 @@ describe "Cell" do
       expect(test_cell.state).to eq " "
     end
   end
+
   describe 'toggle' do
     it 'toggles the state of the cell' do
       test_cell = Cell.new(30,59)
@@ -22,9 +23,19 @@ end
 describe "Grid" do
   describe "initialize" do
     it "initializes the grid with specified dimensions" do
-      test_grid = Grid.new(44,88)
+      test_grid = Grid.new(10,10)
       expect(test_grid).to be_a Grid
       expect(test_grid.all_cells[0]).to eq test_grid.find(0,0)
+    end
+  end
+
+  describe "randomize" do
+    it "randomly assigns cells to start as alive or dead" do
+      test_grid = Grid.new(5,5)
+      test_grid.stub(:rand).and_return(50)
+      test_grid.randomize(50)
+      expect(test_grid.find(2,2).state).to eq "/u2588"
+      expect(test_grid.find(2,2).state_new).to eq "/u2588"
     end
   end
 
