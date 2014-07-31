@@ -35,7 +35,8 @@ class Grid
 
   def tick
     @all_cells.each do |cell|
-      cell.state_new = ' ' if self.alive_neighbors(cell) < 2
+      cell.state_new = ' ' if !(self.alive_neighbors(cell).between?(2,3))
+      cell.state_new = '/u2588' if self.alive_neighbors(cell) == 3
     end
     @all_cells.each do |cell|
       cell.state = cell.state_new

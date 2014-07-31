@@ -73,5 +73,36 @@ describe "Grid" do
       expect(test_cell2.state).to eq "/u2588"
       expect(test_cell3.state).to eq " "
     end
+
+    it "any cell with 4 or more live neighbors dies" do
+      test_grid = Grid.new(88,44)
+      test_cell = test_grid.find(44,22)
+      test_cell2 = test_grid.find(44,21)
+      test_cell3 = test_grid.find(44,23)
+      test_cell4 = test_grid.find(43,22)
+      test_cell5 = test_grid.find(45,22)
+      test_cell.toggle
+      test_cell2.toggle
+      test_cell3.toggle
+      test_cell4.toggle
+      test_cell5.toggle
+      test_grid.tick
+      expect(test_cell.state).to eq " "
+      expect(test_cell3.state).to eq "/u2588"
+    end
+
+    it "any cell with exactly 3 live neighbors lives" do
+      test_grid = Grid.new(88,44)
+      test_cell = test_grid.find(44,22)
+      test_cell2 = test_grid.find(44,21)
+      test_cell3 = test_grid.find(44,23)
+      test_cell4 = test_grid.find(43,22)
+      test_cell2.toggle
+      test_cell3.toggle
+      test_cell4.toggle
+      test_grid.tick
+      expect(test_cell.state).to eq "/u2588"
+      expect(test_cell3.state).to eq " "
+    end
   end
 end
