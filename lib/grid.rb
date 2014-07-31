@@ -20,8 +20,8 @@ class Grid
   def randomize(percent)
     @all_cells.map do |cell|
       if rand(100) <= percent
-        cell.state = "/u2588"
-        cell.state_new = "/u2588"
+        cell.state = "\u2588"
+        cell.state_new = "\u2588"
       end
     end
   end
@@ -39,17 +39,16 @@ class Grid
   end
 
   def alive_neighbors(cell)
-    self.neighbors(cell).count{|neighbor| neighbor.state == "/u2588"}
+    self.neighbors(cell).count{|neighbor| neighbor.state == "\u2588"}
   end
 
   def tick
     @all_cells.each do |cell|
-      cell.state_new = ' ' if !(self.alive_neighbors(cell).between?(2,3))
-      cell.state_new = '/u2588' if self.alive_neighbors(cell) == 3
+      value = self.alive_neighbors(cell)
+      cell.state_new = ' ' if !(value.between?(2,3))
+      cell.state_new = "\u2588" if value == 3
     end
-    @all_cells.each do |cell|
-      cell.state = cell.state_new
-    end
+    @all_cells.each {|cell| cell.state = cell.state_new}
   end
 
 end

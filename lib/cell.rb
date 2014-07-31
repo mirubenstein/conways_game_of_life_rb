@@ -9,8 +9,4 @@ class Cell
     @state_new = " "
   end
 
-  def toggle
-    @state == " " ? @state = "/u2588" : @state = " "
-    @state_new == " " ? @state_new = "/u2588" : @state_new = " "
-  end
 end

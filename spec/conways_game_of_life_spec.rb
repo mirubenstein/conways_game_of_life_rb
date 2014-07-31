@@ -10,14 +10,6 @@ describe "Cell" do
       expect(test_cell.state).to eq " "
     end
   end
-
-  describe 'toggle' do
-    it 'toggles the state of the cell' do
-      test_cell = Cell.new(30,59)
-      test_cell.toggle
-      expect(test_cell.state).to eq '/u2588'
-    end
-  end
 end
 
 describe "Grid" do
@@ -34,8 +26,8 @@ describe "Grid" do
       test_grid = Grid.new(5,5)
       test_grid.stub(:rand).and_return(50)
       test_grid.randomize(50)
-      expect(test_grid.find(2,2).state).to eq "/u2588"
-      expect(test_grid.find(2,2).state_new).to eq "/u2588"
+      expect(test_grid.find(2,2).state).to eq "\u2588"
+      expect(test_grid.find(2,2).state_new).to eq "\u2588"
     end
   end
 
@@ -66,7 +58,7 @@ describe "Grid" do
       test_grid = Grid.new(88,44)
       test_cell = test_grid.find(87,43)
       test_cell2 = test_grid.find(86,43)
-      test_cell2.toggle
+      test_cell2.state = "\u2588"
       expect(test_grid.alive_neighbors(test_cell)).to eq 1
     end
   end
@@ -77,11 +69,14 @@ describe "Grid" do
       test_cell = test_grid.find(87,43)
       test_cell2 = test_grid.find(86,43)
       test_cell3 = test_grid.find(85,43)
-      test_cell.toggle
-      test_cell2.toggle
-      test_cell3.toggle
+      test_cell.state = "\u2588"
+      test_cell2.state = "\u2588"
+      test_cell3.state = "\u2588"
+      test_cell.state_new = "\u2588"
+      test_cell2.state_new = "\u2588"
+      test_cell3.state_new = "\u2588"
       test_grid.tick
-      expect(test_cell2.state).to eq "/u2588"
+      expect(test_cell2.state).to eq "\u2588"
       expect(test_cell3.state).to eq " "
     end
 
@@ -92,14 +87,19 @@ describe "Grid" do
       test_cell3 = test_grid.find(44,23)
       test_cell4 = test_grid.find(43,22)
       test_cell5 = test_grid.find(45,22)
-      test_cell.toggle
-      test_cell2.toggle
-      test_cell3.toggle
-      test_cell4.toggle
-      test_cell5.toggle
+      test_cell.state = "\u2588"
+      test_cell2.state = "\u2588"
+      test_cell3.state = "\u2588"
+      test_cell4.state = "\u2588"
+      test_cell5.state = "\u2588"
+      test_cell.state_new = "\u2588"
+      test_cell2.state_new = "\u2588"
+      test_cell3.state_new = "\u2588"
+      test_cell4.state_new = "\u2588"
+      test_cell5.state_new = "\u2588"
       test_grid.tick
       expect(test_cell.state).to eq " "
-      expect(test_cell3.state).to eq "/u2588"
+      expect(test_cell3.state).to eq "\u2588"
     end
 
     it "any cell with exactly 3 live neighbors lives" do
@@ -108,11 +108,14 @@ describe "Grid" do
       test_cell2 = test_grid.find(44,21)
       test_cell3 = test_grid.find(44,23)
       test_cell4 = test_grid.find(43,22)
-      test_cell2.toggle
-      test_cell3.toggle
-      test_cell4.toggle
+      test_cell2.state = "\u2588"
+      test_cell3.state = "\u2588"
+      test_cell4.state = "\u2588"
+      test_cell2.state_new = "\u2588"
+      test_cell3.state_new = "\u2588"
+      test_cell4.state_new = "\u2588"
       test_grid.tick
-      expect(test_cell.state).to eq "/u2588"
+      expect(test_cell.state).to eq "\u2588"
       expect(test_cell3.state).to eq " "
     end
   end
